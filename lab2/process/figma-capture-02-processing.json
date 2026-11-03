@@ -1,0 +1,8 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Status for capture ID `d246d97a-a114-4d9f-96df-32a1ba3c22b4`: **processing**.\nThis is normal. Capture data was submitted and conversion is in progress.\nAction: wait 5 seconds, then call this tool again with the SAME captureId.\nNext call must include BOTH: `fileKey: \"PX6gIiPxgMNzgMRJXKmV7C\"` and `captureId: \"d246d97a-a114-4d9f-96df-32a1ba3c22b4\"`\nDo not switch methods and do not stop polling early. Continue until status is `completed`."
+    }
+  ]
+}

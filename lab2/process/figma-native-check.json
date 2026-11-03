@@ -1,0 +1,299 @@
+{
+  "time": "2026-11-03T23:59:54.136194+08:00",
+  "fileKey": "PX6gIiPxgMNzgMRJXKmV7C",
+  "root": "5:2",
+  "method": "logged-in Edge, native Figma Layers panel read after expanding actual layer carets",
+  "rootType": "Auto layout",
+  "screenCountObservedAtRoot": 24,
+  "sampleRows": [
+    {
+      "name": "Container (泊序 · 酒店预订与运营)",
+      "id": "5:2-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-01 账号与身份入口\nToggle layer locking\nToggle layer visibility",
+      "id": "5:3-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Container",
+      "id": "5:4-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-02 多间连住组合查询:margin",
+      "id": "5:3749-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-03 房型与全程可售量:margin",
+      "id": "5:3750-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-04 两间三晚预订:margin",
+      "id": "5:3751-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-05 价格变化与再次接受:margin",
+      "id": "5:3752-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-05 价格变化与再次接受",
+      "id": "5:512-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Header",
+      "id": "5:513-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Link",
+      "id": "5:514-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Navigation",
+      "id": "5:521-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Link",
+      "id": "5:522-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Container",
+      "id": "5:526-layers-panel-row",
+      "expanded": "true",
+      "icons": [
+        "Frame"
+      ]
+    },
+    {
+      "name": "查找酒店",
+      "id": "5:523-layers-panel-row",
+      "expanded": null,
+      "icons": [
+        "Text"
+      ]
+    },
+    {
+      "name": "Text:translate",
+      "id": "5:525-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Link",
+      "id": "5:527-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Link",
+      "id": "5:529-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Frame"
+      ]
+    },
+    {
+      "name": "Section:margin",
+      "id": "5:683-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-06 我的预订列表:margin",
+      "id": "5:3753-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-07 订单详情与确认期限:margin",
+      "id": "5:3754-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-08 日期房型与间数调整:margin",
+      "id": "5:3755-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-09 仅更正入住人:margin",
+      "id": "5:3756-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-10 免费取消与18点截止:margin",
+      "id": "5:3757-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-11 前台订单处理:margin",
+      "id": "5:3758-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-12 多房号整体分配:margin",
+      "id": "5:3759-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-13 整单退房与待清洁:margin",
+      "id": "5:3760-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-14 房量房价日历:margin",
+      "id": "5:3761-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-15 客房清洁维修看板:margin",
+      "id": "5:3762-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-16 停业日期与异常协调:margin",
+      "id": "5:3763-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-17 酒店房型维护:margin",
+      "id": "5:3764-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-18 平台酒店名录:margin",
+      "id": "5:3765-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-19 账号与独立日志授权:margin",
+      "id": "5:3766-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-20 住宿区间与间夜统计:margin",
+      "id": "5:3767-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-21 多条件操作日志查询:margin",
+      "id": "5:3768-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    },
+    {
+      "name": "Section - UI-22 同程新请求的继续或放弃:margin",
+      "id": "5:3769-layers-panel-row",
+      "expanded": "false",
+      "icons": [
+        "Auto layout"
+      ]
+    }
+  ],
+  "editableTextSample": {
+    "name": "查找酒店",
+    "id": "5:523-layers-panel-row",
+    "expanded": null,
+    "icons": [
+      "Text"
+    ]
+  },
+  "limitation": "不是链接组件库实例, 库发现受Starter调用限额影响; 24屏是原生捕获的文字与Frame层次"
+}

@@ -4,15 +4,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const dir=path.dirname(fileURLToPath(import.meta.url));
 const lab=path.resolve(dir,'..');
-const require=createRequire(process.env.PLAYWRIGHT_PACKAGE || '/home/starwink/study/se/_supervision/lab2-tools/node_modules/playwright/package.json');
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE || new URL('../package.json',import.meta.url));
 const {chromium}=require('playwright');
 const screens=JSON.parse(fs.readFileSync(path.join(lab,'design/screens.json')));
 const out=path.join(lab,process.argv[2] || 'UI界面');fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1.5});
-const report=[];
+const report=[];const baseURL=process.env.PREVIEW_URL || 'http://127.0.0.1:8766';
 for(const s of screens){
-  await page.goto(`http://127.0.0.1:8766/ui.html?screen=${s.key}${s.query?'&'+s.query:''}&capture=1`,{waitUntil:'networkidle'});
+  await page.goto(`${baseURL}/ui.html?screen=${s.key}${s.query?'&'+s.query:''}&capture=1`,{waitUntil:'networkidle'});
   await page.evaluate(()=>document.fonts.ready);
   const dimensions=await page.evaluate(()=>({width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight,viewport:{width:innerWidth,height:innerHeight},text:document.body.innerText.length}));
   if(dimensions.text<80)throw new Error('Empty UI: '+s.id);

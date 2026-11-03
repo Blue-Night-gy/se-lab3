@@ -1,0 +1,502 @@
+[
+  {
+    "id": "UI-01",
+    "key": "login",
+    "name": "账号与身份入口",
+    "module": "身份访问",
+    "requirements": [
+      1,
+      2,
+      3,
+      23
+    ],
+    "file": "UI-01_账号与身份入口.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 147
+  },
+  {
+    "id": "UI-02",
+    "key": "search",
+    "name": "多间连住组合查询",
+    "module": "酒店查询",
+    "requirements": [
+      4,
+      6,
+      26
+    ],
+    "file": "UI-02_多间连住组合查询.png",
+    "width": 1440,
+    "height": 2152,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 510
+  },
+  {
+    "id": "UI-03",
+    "key": "hotel",
+    "name": "房型与全程可售量",
+    "module": "房型展示",
+    "requirements": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "file": "UI-03_房型与全程可售量.png",
+    "width": 1440,
+    "height": 1748,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 348
+  },
+  {
+    "id": "UI-04",
+    "key": "booking",
+    "name": "两间三晚预订",
+    "module": "预订创建",
+    "requirements": [
+      7,
+      9,
+      13,
+      14,
+      24
+    ],
+    "file": "UI-04_两间三晚预订.png",
+    "width": 1440,
+    "height": 1109,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 517
+  },
+  {
+    "id": "UI-05",
+    "key": "repricing",
+    "name": "价格变化与再次接受",
+    "module": "报价确认",
+    "requirements": [
+      7,
+      9,
+      14,
+      22,
+      24
+    ],
+    "file": "UI-05_价格变化与再次接受.png",
+    "width": 1440,
+    "height": 1054,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 503
+  },
+  {
+    "id": "UI-06",
+    "key": "orders",
+    "name": "我的预订列表",
+    "module": "本人订单",
+    "requirements": [
+      1,
+      8,
+      9
+    ],
+    "file": "UI-06_我的预订列表.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 354
+  },
+  {
+    "id": "UI-07",
+    "key": "order",
+    "name": "订单详情与确认期限",
+    "module": "订单生命周期",
+    "requirements": [
+      7,
+      8,
+      9,
+      12,
+      14
+    ],
+    "file": "UI-07_订单详情与确认期限.png",
+    "width": 1440,
+    "height": 1160,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 559
+  },
+  {
+    "id": "UI-08",
+    "key": "modify",
+    "name": "日期房型与间数调整",
+    "module": "住宿修改",
+    "requirements": [
+      8,
+      9,
+      10,
+      12,
+      22,
+      24
+    ],
+    "file": "UI-08_日期房型与间数调整.png",
+    "width": 1440,
+    "height": 1230,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 479
+  },
+  {
+    "id": "UI-09",
+    "key": "guest",
+    "name": "仅更正入住人",
+    "module": "信息更正",
+    "requirements": [
+      8,
+      9,
+      10,
+      12,
+      22
+    ],
+    "file": "UI-09_仅更正入住人.png",
+    "width": 1440,
+    "height": 1079,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 421
+  },
+  {
+    "id": "UI-10",
+    "key": "cancel",
+    "name": "免费取消与18点截止",
+    "module": "取消政策",
+    "requirements": [
+      8,
+      11,
+      12,
+      22,
+      24
+    ],
+    "file": "UI-10_免费取消与18点截止.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 226
+  },
+  {
+    "id": "UI-11",
+    "key": "desk",
+    "name": "前台订单处理",
+    "module": "订单管理",
+    "requirements": [
+      2,
+      8,
+      12,
+      18,
+      23
+    ],
+    "file": "UI-11_前台订单处理.png",
+    "width": 1440,
+    "height": 1075,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 593
+  },
+  {
+    "id": "UI-12",
+    "key": "checkin",
+    "name": "多房号整体分配",
+    "module": "办理入住",
+    "requirements": [
+      2,
+      8,
+      16,
+      23,
+      24
+    ],
+    "file": "UI-12_多房号整体分配.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 557
+  },
+  {
+    "id": "UI-13",
+    "key": "checkout",
+    "name": "整单退房与待清洁",
+    "module": "办理退房",
+    "requirements": [
+      2,
+      8,
+      16,
+      20,
+      24
+    ],
+    "file": "UI-13_整单退房与待清洁.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 374
+  },
+  {
+    "id": "UI-14",
+    "key": "inventory",
+    "name": "房量房价日历",
+    "module": "每日售卖",
+    "requirements": [
+      2,
+      4,
+      5,
+      13,
+      17,
+      20,
+      24
+    ],
+    "file": "UI-14_房量房价日历.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 646
+  },
+  {
+    "id": "UI-15",
+    "key": "rooms",
+    "name": "客房清洁维修看板",
+    "module": "实体房态",
+    "requirements": [
+      2,
+      16,
+      17,
+      20
+    ],
+    "file": "UI-15_客房清洁维修看板.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 522
+  },
+  {
+    "id": "UI-16",
+    "key": "coordination",
+    "name": "停业日期与异常协调",
+    "module": "供房异常",
+    "requirements": [
+      3,
+      10,
+      11,
+      17,
+      20,
+      22
+    ],
+    "file": "UI-16_停业日期与异常协调.png",
+    "width": 1440,
+    "height": 1111,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 623
+  },
+  {
+    "id": "UI-17",
+    "key": "roomtypes",
+    "name": "酒店房型维护",
+    "module": "房型资料",
+    "requirements": [
+      2,
+      4,
+      5,
+      23
+    ],
+    "file": "UI-17_酒店房型维护.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 379
+  },
+  {
+    "id": "UI-18",
+    "key": "hotels",
+    "name": "平台酒店名录",
+    "module": "酒店资料",
+    "requirements": [
+      3,
+      5,
+      17,
+      23
+    ],
+    "file": "UI-18_平台酒店名录.png",
+    "width": 1440,
+    "height": 1057,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 421
+  },
+  {
+    "id": "UI-19",
+    "key": "accounts",
+    "name": "账号与独立日志授权",
+    "module": "人员权限",
+    "requirements": [
+      2,
+      3,
+      20,
+      21,
+      23
+    ],
+    "file": "UI-19_账号与独立日志授权.png",
+    "width": 1440,
+    "height": 1037,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 463
+  },
+  {
+    "id": "UI-20",
+    "key": "statistics",
+    "name": "住宿区间与间夜统计",
+    "module": "经营查询",
+    "requirements": [
+      3,
+      18,
+      19,
+      25
+    ],
+    "file": "UI-20_住宿区间与间夜统计.png",
+    "width": 1440,
+    "height": 1029,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 519
+  },
+  {
+    "id": "UI-21",
+    "key": "audit",
+    "name": "多条件操作日志查询",
+    "module": "审计查询",
+    "requirements": [
+      3,
+      20,
+      21,
+      23,
+      25
+    ],
+    "file": "UI-21_多条件操作日志查询.png",
+    "width": 1440,
+    "height": 1015,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 604
+  },
+  {
+    "id": "UI-22",
+    "key": "duplicate",
+    "name": "同程新请求的继续或放弃",
+    "module": "重复提醒",
+    "requirements": [
+      7,
+      14,
+      15,
+      22,
+      24
+    ],
+    "file": "UI-22_同程新请求的继续或放弃.png",
+    "width": 1440,
+    "height": 1054,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 502
+  },
+  {
+    "id": "UI-23",
+    "key": "exceptions",
+    "name": "售罄到期与权限反馈",
+    "module": "异常反馈",
+    "requirements": [
+      4,
+      6,
+      7,
+      11,
+      12,
+      22,
+      23,
+      24
+    ],
+    "file": "UI-23_售罄到期与权限反馈.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 410
+  },
+  {
+    "id": "UI-24",
+    "key": "auditDenied",
+    "name": "工作人员日志权限拒绝",
+    "module": "独立日志授权",
+    "requirements": [
+      2,
+      20,
+      21,
+      23
+    ],
+    "file": "UI-24_工作人员日志权限拒绝.png",
+    "width": 1440,
+    "height": 1000,
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "text": 333
+  }
+]

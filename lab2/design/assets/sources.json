@@ -44,6 +44,27 @@
       "page": "https://unsplash.com/photos/a-luxurious-hotel-room-with-two-beds-4MQ0T4zBIys",
       "photographer": "Alex Muzenhardt",
       "license": "https://unsplash.com/license"
+    },
+    {
+      "file": "wood-twin.jpg",
+      "source": "https://images.unsplash.com/photo-1740324351912-b9189685ab1a?auto=format&fit=crop&w=1800&q=85",
+      "page": "https://unsplash.com/photos/a-hotel-room-with-two-beds-and-a-couch-LhHtwbh9Nag",
+      "photographer": "Ed Wingate",
+      "license": "https://unsplash.com/license"
+    },
+    {
+      "file": "warm-twin.jpg",
+      "source": "https://images.unsplash.com/photo-1651804279611-a0b8b4bdb4f4?auto=format&fit=crop&w=1800&q=85",
+      "page": "https://unsplash.com/photos/a-hotel-room-with-two-beds-XG8kvYZtr04",
+      "photographer": "CHUTTERSNAP",
+      "license": "https://unsplash.com/license"
+    },
+    {
+      "file": "wood-room.jpg",
+      "source": "https://images.unsplash.com/photo-1765547090903-348b711f0eee?auto=format&fit=crop&w=1800&q=85",
+      "page": "https://unsplash.com/photos/modern-bedroom-with-wooden-accents-and-natural-light-CMHgRFDANH8",
+      "photographer": "Marcel Strauß",
+      "license": "https://unsplash.com/license"
     }
   ]
 }

@@ -1,0 +1,202 @@
+{
+  "time": "2026-11-04T00:08:52.735+08:00",
+  "screens": [
+    {
+      "id": "UI-01",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-02",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-03",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-04",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-05",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-06",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-07",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-08",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-09",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-10",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-11",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-12",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-13",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-14",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-15",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-16",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-17",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-18",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-19",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-20",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-21",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-22",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-23",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    },
+    {
+      "id": "UI-24",
+      "width": 1440,
+      "brokenImages": 0,
+      "overflow": [],
+      "previewControls": 0
+    }
+  ],
+  "flows": [
+    {
+      "name": "新报价1780的订单详情",
+      "ok": true
+    },
+    {
+      "name": "住宿修改后金额日期和新期限",
+      "ok": true
+    },
+    {
+      "name": "单改入住人保持金额和原期限",
+      "ok": true
+    },
+    {
+      "name": "201与202整体入住后均已入住",
+      "ok": true
+    },
+    {
+      "name": "201与202整体退房后均待清洁",
+      "ok": true
+    },
+    {
+      "name": "拒绝页面不含日志正文",
+      "ok": true
+    }
+  ],
+  "directoryLinks": 24,
+  "failures": [],
+  "note": "只验证界面构图和设计状态跳转, 不是后端事务或并发验收"
+}

@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-03T23:54:47.065294+08:00",
+  "fileKey": "PX6gIiPxgMNzgMRJXKmV7C",
+  "captureId": "d246d97a-a114-4d9f-96df-32a1ba3c22b4",
+  "source": "http://localhost:8766/ui.html?screen=board&capture=1",
+  "selector": "#design-board",
+  "screens": 24,
+  "method": "official generate_figma_design; ordinary Edge script-tag local capture",
+  "status": "completed",
+  "nodeId": "5:2",
+  "url": "https://www.figma.com/design/PX6gIiPxgMNzgMRJXKmV7C?node-id=5-2",
+  "structure": "raw editable frames, not linked library instances",
+  "pngMethod": "same-source local browser render, not Figma direct export"
+}
