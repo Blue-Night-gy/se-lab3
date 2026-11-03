@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-11-03T23:08:36.409046+08:00",
+  "lab1_files": {
+    "实验1_241220090_葛茹月.zip": "06ade37684e05bd71598a15ac54fdf336b4b5ac8900d6da0259f5dbe7913cc49",
+    "requirements.md": "5aeddea28f6800aaefd038e707a4ed871d757c98ef60021a4fad7e8e6746a2cd",
+    "chat.txt": "ac74943ee3614dbd4fae75d828ae6e338368f7cfd8774ad1b9693cb0c9322bce",
+    "prompt.md": "e8aece73900f426be3dc02442b426a7dc438c8ee27e0c0ff5ec3e279ab520b6b",
+    "elegantpaper-LICENSE": "5f05fcf6ef25a6c31bccd2df7c0c46b23107bbeb2ce5cdba74efb5cc357f4dbb",
+    "report.tex": "5f6d54d774da658f8caa4efd0a74933a1fb88460cc6fee7a498b58d207deed21",
+    "report.pdf": "15b2e5f1d2757201b7d8739e77a076fe2e481c39c7e55dd0647ddc66a9863af3",
+    "elegantpaper.cls": "29370455a0cdf0af94039a6483ba1433f5b067666771b0f96c4cca0159830173"
+  },
+  "tags": {
+    "lab1-ai-draft": "4ae24c9e73bd3948eeb3e3a8160212280db9e77b",
+    "lab1-final": "dce5dba8d3f368a033eea27a77aab1a08f951c0a"
+  },
+  "identity": "slivertrain75-coder <241220090@smail.nju.edu.cn> 1793718516 +0800",
+  "policy": "local Git only; no push"
+}

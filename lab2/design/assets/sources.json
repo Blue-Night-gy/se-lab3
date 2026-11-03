@@ -1,0 +1,49 @@
+{
+  "retrievedAt": "2026-11-03T23:10:55.814950+08:00",
+  "assets": [
+    {
+      "file": "room-river.jpg",
+      "source": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1600&q=85",
+      "license": "https://unsplash.com/license",
+      "status": "downloaded"
+    },
+    {
+      "file": "room-city.jpg",
+      "source": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=85",
+      "license": "https://unsplash.com/license",
+      "status": "downloaded"
+    },
+    {
+      "file": "room-twin.jpg",
+      "source": "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1600&q=85",
+      "license": "https://unsplash.com/license",
+      "status": "downloaded"
+    },
+    {
+      "file": "room-deluxe.jpg",
+      "source": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=85",
+      "license": "https://unsplash.com/license",
+      "status": "downloaded"
+    },
+    {
+      "file": "lounge.jpg",
+      "source": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85",
+      "license": "https://unsplash.com/license",
+      "status": "downloaded"
+    },
+    {
+      "file": "room-twin-real.jpg",
+      "source": "https://images.unsplash.com/photo-1648383228240-6ed939727ad6?auto=format&fit=crop&w=1600&q=85",
+      "page": "https://unsplash.com/photos/a-hotel-room-with-two-beds-and-a-desk-gdJpDTU85ek",
+      "photographer": "oning",
+      "license": "https://unsplash.com/license"
+    },
+    {
+      "file": "room-twin-luxury.jpg",
+      "source": "https://images.unsplash.com/photo-1741506131058-533fcf894483?auto=format&fit=crop&w=1600&q=85",
+      "page": "https://unsplash.com/photos/a-luxurious-hotel-room-with-two-beds-4MQ0T4zBIys",
+      "photographer": "Alex Muzenhardt",
+      "license": "https://unsplash.com/license"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "time": "2026-11-03T23:22:03.307755+08:00",
+  "scene": "b的独立23屏首次生成",
+  "inputFile": "process/ui-ai-01-input.txt",
+  "sourceHashes": {
+    "ui.html": "4174cbbdfe947773901a2fddb3d0ad43c89f7435cb190b87ec1343b983538569",
+    "ui.css": "2c7f92cf384f3d62ba0a8136a61ea8b0ca96d0f4e9117f6ca4530de57bc193af",
+    "ui.js": "a86d9cca2ae6c8c32c350c66b7c6094fe36845660233dc2d1f230150d34fa767",
+    "preview.js": "7580820feaba157ee7d886b93d61bfa7c3304f74e0b84ab277eb86ba5f8df558",
+    "index.html": "1b2c227d690e31514c5914633369c1d0b6bb0b6214c71706010f81f0d6d844d6",
+    "screens.json": "2cbd0c747f115753827f312935d0dcc460bf69f4c94c7fd68f8cf598a9559f0f"
+  },
+  "output": "现代蓝白、横向导航、三列摄影查询、房量日历与多房号选择",
+  "next": "固定初稿后对业务样例、布局和实际渲染进行检查"
+}

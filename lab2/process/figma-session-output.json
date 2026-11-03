@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"sessionId\":\"a2d5f545-e4b0-427d-898a-29ce05876f8c\"}"
+    }
+  ],
+  "structuredContent": {
+    "sessionId": "a2d5f545-e4b0-427d-898a-29ce05876f8c"
+  }
+}
