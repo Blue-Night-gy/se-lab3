@@ -1,0 +1,34 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName Noto Sans SC
+title B08 部署图 - 单应用, 单数据库与本地持久化
+node "同一有线局域网测试客户端" as Client {
+  artifact "浏览器 / 接口测试客户端" as Browser
+}
+node "Linux主机 / 4核CPU / 8GB内存" as Host {
+  node "酒店预订应用进程" as App {
+    component "HTTP API及访问范围校验" as API
+    component "预订/售卖/前台应用服务" as Services
+    component "到期任务扫描器" as Worker
+    component "只读查询与统计" as Reporting
+  }
+  node "MySQL 8.4 / InnoDB" as MySQL {
+    database "酒店业务库" as Db
+    artifact "持久数据文件与事务日志" as Disk
+  }
+}
+Browser --> API : HTTPS/JSON(部署建议)
+API --> Services
+API --> Reporting
+Worker --> Services : 当前订单版本超时命令
+Services --> Db : 同连接Tbiz / 有序行锁 / 成功审计
+Reporting --> Db : 一致读快照
+Worker --> Db : 扫描持久确认任务
+Db --> Disk : COMMIT后持久化
+note bottom of Host
+记录实际CPU型号和数据库版本.
+查询性能: 10并发, 100次, 至少95次<=2秒.
+末房正确性: 20个不同顾客, 单独场景.
+未设计支付, 退款, 远程灾备或分布式消息系统.
+end note
+@enduml

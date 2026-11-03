@@ -7,13 +7,13 @@ state "已确认" as Confirmed
 state "已入住" as CheckedIn
 state "已完成" as Completed
 state "已取消" as Cancelled
-[*] --> Pending : 创建成功 / 逐晚占用q, deadline=T+20min
-Pending --> Confirmed : 工作人员确认 [now < deadline]
-Pending --> Cancelled : 自动超时 [now >= deadline, 当前version]
-Pending --> Cancelled : 本人取消 [now < 入住日18:00, 未入住]
-Confirmed --> Cancelled : 本人取消 [now < 入住日18:00, 未入住]
-Pending --> Pending : 住宿变化成功 / version++, deadline=T+20min
-Confirmed --> Pending : 住宿变化成功 / version++, deadline=T+20min
+[*] --> Pending : 创建成功 / 逐晚占用q, deadline=本次T+20min
+Pending --> Confirmed : 工作人员确认 [T < deadline]
+Pending --> Cancelled : 自动超时 [T >= deadline, 当前version]
+Pending --> Cancelled : 本人取消 [T < 入住日18:00, 未入住]
+Confirmed --> Cancelled : 本人取消 [T < 入住日18:00, 未入住]
+Pending --> Pending : 住宿变化成功 / version++, deadline=本次T+20min
+Confirmed --> Pending : 住宿变化成功 / version++, deadline=本次T+20min
 Pending --> Pending : 仅入住人更正 / version++, 保留原价和deadline
 Confirmed --> Confirmed : 仅入住人更正 / version++, 保留原价和deadline
 Confirmed --> CheckedIn : 工作人员入住 [q个不同空闲同型同店房号]
@@ -21,6 +21,7 @@ CheckedIn --> Completed : 全部房间退房 / q间均转待清洁
 Cancelled --> [*]
 Completed --> [*]
 note right of Pending
+T=本分支全部必要锁取得后的数据库时钟.
 到期先超时取消, 后判断原请求.
 更正入住人后以新version重建同期限任务.
 旧version任务不得处理新version.
@@ -28,7 +29,7 @@ end note
 note left of Confirmed
 住宿调整和入住人更正均要求:
 本人, 原状态可改, 
-now < 当前计划入住日北京时间18:00, 
+T < 当前计划入住日北京时间18:00, 
 尚未实际入住.
 end note
 note bottom of CheckedIn

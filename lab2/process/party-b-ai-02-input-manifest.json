@@ -1,0 +1,20 @@
+{
+  "started_at": "2026-11-03T23:49:11+08:00",
+  "input_bytes": 115843,
+  "input_sha256": "7d26a550741e233c9c525d6c94885f4c540d0344ebdec18cd95e4f4ccd05098d",
+  "files": {
+    "design/design.md": "7f2b35050f953d16c0742f52077a4439bfe4c826078b2e4fa85ac9bca552fd17",
+    "design/traceability.md": "331234f9eee15eb45f53b5a07092e97ac4aaed69573478ff8031eb83c39999bb",
+    "design/boundary-cases.md": "ff27e6eeb722b571ad2d1d53ae2f0d17f004498c95e4eaf6b226eac0a7314166",
+    "design/report-body.md": "d3c96a11ccad92b4a34bf2882bf2a05baea60359410f1ed14e98803b5bb11281",
+    "design/screens.json": "60a454599c296ed92322e2629bce04aefb781e05f34b31cef06cc5ad5f90d1d5",
+    "UML/B01-package-architecture.puml": "e24e7b0c92e5cbcfe1e718025c7dc3119b863d8867672149731c82c7f24f8032",
+    "UML/B02-domain-class.puml": "ddaa229fdd91522bf9899c659baa2e995715f32b8fd2dad2d5812b3260021e64",
+    "UML/B03-multi-room-object.puml": "f74eacb57c550b33d45f7a20b6b3a3727618a9589fe3d68c6d9e69d7d57783d1",
+    "UML/B04-order-state.puml": "21aa299135dde2735d2851aa069f08eb364be6060d30a94fb5a39a13412d1cd5",
+    "UML/B05-quote-submit-activity.puml": "c051bf422ab415bbba2b4b4119f44ad0ff7876ab609a7fd256bde519ebad9652",
+    "UML/B06-booking-sequence.puml": "5a0153957c9ea494204b7a3b339d2c985d55686247a0b97d1c4127b40c37ada9",
+    "UML/B07-amendment-sequence.puml": "1ee256495ca7fe42789aa705cf24de2415b2e33d4598fb6c555c80deae0ae1ec",
+    "UML/B08-local-deployment.puml": "d16a9976236ae4ad21cbcc15285b99a8fada3c1efc8284789beccfb8fd429bce"
+  }
+}

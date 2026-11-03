@@ -1,0 +1,97 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName Noto Sans SC
+title B03 对象图 - 两间三晚, 成交价和实体分房
+object "o501 : Reservation" as O {
+  id = R501
+  customerId = U17
+  state = CHECKED_IN
+  hotelId = H01
+  roomTypeId = T01
+  checkin = 2026-11-06
+  checkout = 2026-11-09
+  quantity = 2
+  total = CNY 1700.00
+  version = 3
+  actualCheckinUtc = 2026-11-06T08:30:00Z
+}
+object "n6 : BookedNight" as N6 {
+  stayDate = 2026-11-06
+  unitPrice = 260.00
+  quantity = 2
+  reservedQuantity = 2
+}
+object "n7 : BookedNight" as N7 {
+  stayDate = 2026-11-07
+  unitPrice = 280.00
+  quantity = 2
+  reservedQuantity = 2
+}
+object "n8 : BookedNight" as N8 {
+  stayDate = 2026-11-08
+  unitPrice = 310.00
+  quantity = 2
+  reservedQuantity = 2
+}
+object "d6 : DayOffer" as D6 {
+  key = T01/2026-11-06
+  capacity = 10
+  reservedUnits = 2
+  currentPrice = 300.00
+}
+object "d7 : DayOffer" as D7 {
+  key = T01/2026-11-07
+  capacity = 10
+  reservedUnits = 2
+  currentPrice = 280.00
+}
+object "d8 : DayOffer" as D8 {
+  key = T01/2026-11-08
+  capacity = 10
+  reservedUnits = 2
+  currentPrice = 310.00
+}
+object "a1 : RoomAssignment" as A1 {
+  orderId = R501
+  roomId = RM201
+  checkoutUtc = null
+}
+object "a2 : RoomAssignment" as A2 {
+  orderId = R501
+  roomId = RM202
+  checkoutUtc = null
+}
+object "room201 : Room" as R201 {
+  hotelId = H01
+  roomTypeId = T01
+  number = 201
+  state = OCCUPIED
+}
+object "room202 : Room" as R202 {
+  hotelId = H01
+  roomTypeId = T01
+  number = 202
+  state = OCCUPIED
+}
+O *-- N6
+O *-- N7
+O *-- N8
+N6 --> D6
+N7 --> D7
+N8 --> D8
+O *-- A1
+O *-- A2
+A1 --> R201
+A2 --> R202
+note bottom of O
+(260 + 280 + 310) * 2 = 1700.
+11月9日不占用间夜.
+当前日售涨价不覆盖n6成交价.
+已入住后普通修改和取消均拒绝.
+end note
+note bottom of R202
+退房一个事务内:
+o501 -> COMPLETED,
+a1/a2结束, 两房均 -> DIRTY.
+end note
+@enduml

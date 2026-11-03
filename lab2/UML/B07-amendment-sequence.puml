@@ -1,55 +1,61 @@
 @startuml
 skinparam defaultFontName Noto Sans SC
-title B07 时序图 - 住宿调整, 入住人更正与旧期限任务
+skinparam shadowing false
+title B07 时序图 - 锁齐后取时, 修改与到期竞争
 actor "顾客" as C
 control "改单协调服务" as S
-control "领域对象" as D
+control "Reservation" as R
 database "MySQL/InnoDB" as DB
 control "确认期限任务" as W
-C -> S : amend(operationId, expectedVersion, acceptedQuoteId, newPlan/guest)
-S -> DB : 操作互斥与T0内容绑定
-S -> DB : BEGIN Tbiz; 锁顾客闸行, 订单和所需资源
-S -> DB : 读取当前version, 状态, deadline与最终服务端时间
-alt 待确认且now >= deadline
-  S -> D : expire(now, currentVersion)
-  S -> DB : 全部旧间夜释放, 已取消, 成功审计, 当前任务办结
-  S -> DB : COMMIT超时事务
-  S -> DB : 独立保存本次改单失败尝试及结果
+C -> S : modify(operationId, expectedVersion, guest或newPlan)
+S -> DB : 同号互斥与T0绑定; BEGIN Tbiz
+S -> DB : 锁当前授权, 顾客闸行, 当前订单
+S -> DB : 读取版本, 状态, 旧期限和原行程
+alt 仅更正入住人
+  S -> DB : 本分支所需锁已齐; 读取最终时刻T
+else 住宿日期/房型/间数变化
+  S -> DB : 锁酒店及新旧日售并集, 按固定键序取得全部锁
+  S -> DB : 当前读新价和可售条件; 锁齐后读取最终时刻T
+end
+alt 当前待确认且T >= 原确认期限
+  S -> DB : 若有尚未取得的旧日售释放锁, 按序补齐后重取T_expire
+  S -> R : expire(T_expire,currentVersion)
+  S -> DB : 系统超时取消+各晚单次释放+系统审计; COMMIT
+  S -> DB : 独立保存原修改拒绝结果, 不能回滚已提交超时取消
   S --> C : ORDER_EXPIRED
-else 当前仍允许修改
-  alt 仅入住人变化
-    S -> D : correctGuest(guest)
-    S -> DB : version++, 状态/原价/deadline均保持
-    S -> DB : 为新version保存同deadline任务(仅待确认)
-    S -> DB : 保存成功审计和操作结果; COMMIT
+else 状态/版本不符, 已入住或T >= 原入住日18:00
+  S -> DB : ROLLBACK并独立保存拒绝, 不执行调整
+  S --> C : STATE / VERSION / POLICY_CONFLICT
+else 当前仍可修改
+  alt 仅更正入住人
+    S -> R : correctGuest(GuestChange(guest,T,expectedVersion))
+    S -> DB : version++; 保留状态/原价/原deadline
+    S -> DB : 待确认时写新version同deadline任务; 审计与结果; COMMIT
     S --> C : UPDATED_GUEST
-  else 日期 / 房型 / 间数变化
-    S -> DB : 锁新旧日售并集, 计算delta=D-O
-    S -> D : 检验新逐晚报价及available+O >= D
-    alt 报价变化或任一晚不可订
-      S -> DB : ROLLBACK, 原订单和旧占用不变
-      S -> DB : 独立保存新报价/错误结果和失败审计
+  else 住宿变化
+    S -> R : amendStay(StayChange(newPlan,acceptedQuote,T,expectedVersion))
+    alt 新报价未接受或任一晚不可订
+      S -> DB : 显式ROLLBACK整个Tbiz; 原单/价/占用/期限不变
+      S -> DB : 独立保存替代报价或拒绝结果
       S --> C : PRICE_CHANGED / NO_AVAILABILITY
-    else 全部通过
-      S -> D : amendStay(newPlan, acceptedQuote, now)
-      S -> DB : 更新差额, 替换成交夜价, 待确认, version++
-      S -> DB : deadline=本次成功时刻+20min, 写新版本任务
-      S -> DB : 保存原完整快照, 成功审计及操作结果; COMMIT
+    else 报价与全程库存均通过
+      S -> DB : delta=D-O; 替换整段夜价; 待确认; version++
+      S -> DB : deadline=T+20分钟; 新任务, 原快照, 审计与结果; COMMIT
       S --> C : UPDATED_STAY
     end
   end
 end
-W -> DB : BEGIN; 按相同锁顺序读取订单并锁定
-alt 任务expectedVersion != 当前version 或非待确认
-  W -> DB : 标记SKIPPED; COMMIT, 不改订单和库存
-else 当前版本且now >= deadline
-  W -> DB : 取消+逐晚释放+审计+任务结果; COMMIT
-else 尚未到期
+W -> DB : BEGIN; 同一锁顺序锁当前订单与旧日售, 锁齐后读T
+alt expectedVersion不符或当前不是待确认
+  W -> DB : SKIPPED; COMMIT, 不改订单或库存
+else T >= 当前deadline
+  W -> DB : 系统取消+单次释放+审计+任务结果; COMMIT
+else 未到期
   W -> DB : 保持待处理; COMMIT
 end
 note over S,W
-Tbiz中的确认, 修改和超时通过订单锁串行化.
-入住人更正也升version, 必须补同期限的新版本任务.
-等待顾客接受新价不暂停原20分钟确认倒计时.
+等锁期间可能跨过20分钟或18:00, 不能沿用早期时间.
+更正入住人升version, 但补原deadline的新任务, 不延长期限.
+等待顾客接受新价期间原待确认倒计时照常运行.
 end note
 @enduml

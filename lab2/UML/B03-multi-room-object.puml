@@ -6,14 +6,17 @@ object "o501 : Reservation" as O {
   id = R501
   customerId = U17
   state = CHECKED_IN
+  plan = p501
+  total = CNY 1700.00
+  version = 3
+  actualCheckinUtc = 2026-11-06T08:30:00Z
+}
+object "p501 : StayPlan" as P {
   hotelId = H01
   roomTypeId = T01
   checkin = 2026-11-06
   checkout = 2026-11-09
   quantity = 2
-  total = CNY 1700.00
-  version = 3
-  actualCheckinUtc = 2026-11-06T08:30:00Z
 }
 object "n6 : BookedNight" as N6 {
   stayDate = 2026-11-06
@@ -66,13 +69,16 @@ object "room201 : Room" as R201 {
   roomTypeId = T01
   number = 201
   state = OCCUPIED
+  occupiedOrderId = R501
 }
 object "room202 : Room" as R202 {
   hotelId = H01
   roomTypeId = T01
   number = 202
   state = OCCUPIED
+  occupiedOrderId = R501
 }
+O *-- P
 O *-- N6
 O *-- N7
 O *-- N8

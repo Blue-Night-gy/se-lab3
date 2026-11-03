@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-11-03T23:51:29+08:00",
+  "original_output_sha256": "2acf4b16b39ddc00b07dc11a741135952d4c8e70b5ca7cdd86817054cafd5f64",
+  "proposal_equal": true,
+  "raw_diagram_sources_equal_to_original_fences": true,
+  "originals": [
+    {
+      "name": "B01-package-architecture.puml",
+      "sha256": "e24e7b0c92e5cbcfe1e718025c7dc3119b863d8867672149731c82c7f24f8032"
+    },
+    {
+      "name": "B02-domain-class.puml",
+      "sha256": "f5de5a3df244cb1726178aef872d4ed61369e9ae90514d2f7fc9e4ee6f821b92"
+    },
+    {
+      "name": "B03-multi-room-object.puml",
+      "sha256": "8e994dd6c31ac5150a4c0914d672620ec09829f0cb5d826483c972891817d9c8"
+    },
+    {
+      "name": "B04-order-state.puml",
+      "sha256": "7dbc87da6b00c7e8e3c3ff4f90b474b74eba3e385d111eb760d197accd0748c8"
+    },
+    {
+      "name": "B05-quote-submit-activity.puml",
+      "sha256": "4fb3400f48b6f55442ff20f95d1bf9fc81b6ebe73da13aff018e46f1ca4d53c0"
+    },
+    {
+      "name": "B06-booking-sequence.puml",
+      "sha256": "68f3975082e30468a7a17b2f79841c253596b087d367c47fdef06f6accefc8a2"
+    },
+    {
+      "name": "B07-amendment-sequence.puml",
+      "sha256": "d46da6ec6e23e6af4697c224609bcf1a9dc69d71676c295b2f76021bfda33bca"
+    },
+    {
+      "name": "B08-local-deployment.puml",
+      "sha256": "d16a9976236ae4ad21cbcc15285b99a8fada3c1efc8284789beccfb8fd429bce"
+    }
+  ],
+  "final_diagram_count": 8,
+  "requirements_rows": 26,
+  "ui_index_count": 24
+}

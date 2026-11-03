@@ -1,0 +1,152 @@
+[
+  {
+    "id": "R-B01",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B07, DR-02/06",
+    "original": "读取当前version, 状态, deadline与最终服务端时间",
+    "finding": "之后才锁新旧日售并集, 等锁可能跨过20分钟或18:00.",
+    "decision": "修改",
+    "result": "本分支全部必要锁后取T再验期限, 新确认期从T开始; 超时取消如补旧日售锁, 补齐后重取T_expire.",
+    "basis": "REQ-010/012/022, BC-21"
+  },
+  {
+    "id": "R-B02",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "DR-03, B04/B07",
+    "original": "入住人更正后如订单仍待确认, 同事务创建新version对应的任务, 期限仍是旧期限.",
+    "finding": "原稿已处理更正入住人升version后旧任务跳过的问题, 方案可行.",
+    "decision": "保留",
+    "result": "保留同旧deadline的新任务和当前待确认扫描, 不另改确认周期模型.",
+    "basis": "REQ-008/010/012, BC-08/09"
+  },
+  {
+    "id": "R-B03",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B02类图",
+    "original": "16个类及跨包连接",
+    "finding": "实际查看原渲染, 类分布过散, 跨包线长, 核心预订链难读.",
+    "decision": "修改",
+    "result": "收为8个核心类, 保留私有字段, 受控方法及组合归属; 完整目录和协调字段在数据库设计中.",
+    "basis": "原渲染process/uml-ai-01/B02-domain-class.png, 当前B02"
+  },
+  {
+    "id": "R-B04",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "DA-02, availability",
+    "original": "查询价格范围暂建议解释为所选q间整个住宿行程总价",
+    "finding": "原稿明确是未定假设. 本轮与界面确认了另一筛选口径, 需同步.",
+    "decision": "修改",
+    "result": "按每间每晚, 全部住宿夜均满足, 另显q间全程总价; 人数按单间上限*q列为设计假设.",
+    "basis": "REQ-006, party-b-design-decisions.md"
+  },
+  {
+    "id": "R-B05",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B03对象图",
+    "original": "hotelId = H01",
+    "finding": "订单槽位展开了StayPlan里的字段, 与类图的组合边界不够一致.",
+    "decision": "修改",
+    "result": "显式增加p501:StayPlan, Reservation组合它; 例子保留1700成交与当前300售价, 多房归属一致.",
+    "basis": "B02的plan:StayPlan, REQ-007/009/016"
+  },
+  {
+    "id": "R-B06",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B05活动图",
+    "original": "重新进入同一服务流程, 仍复核实时售价",
+    "finding": "文字说重新提交, 图却在接受分支走到终止节点, 没画回入口.",
+    "decision": "修改",
+    "result": "价格接受和同程继续带新标识返回同一提交循环; 同内容网络重试仍沿用旧号; 等人决定前释放锁.",
+    "basis": "REQ-014/015/022, BC-03/04/05"
+  },
+  {
+    "id": "R-B07",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "DR-11, B06",
+    "original": "连接释放或进程退出释放命名锁.",
+    "finding": "连接归还池并不等于会话结束, 原稿未把finally边界和取锁失败分支展开.",
+    "decision": "补充",
+    "result": "专用连接贯穿各事务, 仅GET_LOCK返回1才执行; 显式RELEASE_LOCK后归池, 状态不明丢弃; 同号恢复先查持久结果.",
+    "basis": "MySQL8.4锁函数官方手册, BC-22"
+  },
+  {
+    "id": "R-B08",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "DR-06/13, B06/B07",
+    "original": "死锁或数据库瞬时冲突只允许以相同operationId重试完整Tbiz, 不保留半程变化.",
+    "finding": "原稿要求完整回滚是正确的; MySQL锁等待超时默认可能只回滚当前语句, 需要应用工作单元明确执行.",
+    "decision": "补充",
+    "result": "任一写失败显式ROLLBACK整个Tbiz, 然后才Tfail或按原号重试, 不在失败语句后继续提交.",
+    "basis": "MySQL8.4错误处理官方手册, REQ-024, BC-19/22"
+  },
+  {
+    "id": "R-B09",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B02, DR-07, 表约束",
+    "original": "父表补相应复合唯一键",
+    "finding": "原稿已有活动房号唯一列, 但父表键及当前Room所属订单可写得更明确.",
+    "decision": "补充",
+    "result": "列出reservation(id,hotel_id,room_type_id)唯一及两条分房复合FK; Room保存occupiedOrderId且和活动分配同事务更新.",
+    "basis": "REQ-016, BC-13/14"
+  },
+  {
+    "id": "R-B10",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "B02方法契约",
+    "original": "+correctGuest(guest: GuestInfo): void",
+    "finding": "字段私有仍不足以表达此方法的时间守卫.",
+    "decision": "补充",
+    "result": "GuestChange显式携带T及expectedVersion, 聚合再次检查状态, 旧期限和普通修改截止.",
+    "basis": "REQ-008/010/022, BC-08/12/21"
+  },
+  {
+    "id": "R-B11",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "traceability.md",
+    "original": "BUI-P编号是提案占位",
+    "finding": "原稿未读取后来实际完成的界面, 不能把建议编号当最终屏号.",
+    "decision": "对齐",
+    "result": "按实际screens.json对齐UI-01至UI-24; 独立日志拒绝落UI-24, 不放顾客工作台.",
+    "basis": "screens.json与本轮界面复核沟通"
+  },
+  {
+    "id": "R-B12",
+    "recorded_at": "2026-11-03T23:47:28+08:00",
+    "target": "DR-05/12, B03",
+    "original": "2间11月6日至9日订单统计7日至8日为1,0,4; 取消后为1,1,0; 加入1间8日至10日有效订单为2,1,1",
+    "finding": "原稿计算和同一快照口径正确.",
+    "decision": "保留",
+    "result": "保留公式, 以独立计算复核1700/1780, -2/0/0/+2和四组统计; 不新增已完成金额.",
+    "basis": "REQ-006/010/018/019, party-b-example-check.json"
+  },
+  {
+    "id": "R-B13",
+    "recorded_at": "2026-11-03T23:57:31+08:00",
+    "target": "B01包图布局",
+    "original": "初稿渲染尺寸2274x539",
+    "finding": "实际缩放后应用层横向过宽, 小字不利阅读.",
+    "decision": "布局调整",
+    "result": "保留全部可见依赖线, 加包内纵排隐藏约束, 待重新渲染核对比例.",
+    "basis": "实际渲染反馈与UML版面复核"
+  },
+  {
+    "id": "R-B14",
+    "recorded_at": "2026-11-03T23:57:31+08:00",
+    "target": "REQ-016的最终界面映射",
+    "original": "UI-12, UI-13, UI-15, UI-23",
+    "finding": "UI-23后来只保留顾客的四类拒绝, 不是实体房分配页.",
+    "decision": "对齐",
+    "result": "REQ-016移除UI-23, 保留UI-12/13/15. 工作人员日志拒绝独立用UI-24.",
+    "basis": "重新实际读取的最终24屏screens.json与本轮UI复核沟通"
+  },
+  {
+    "id": "R-B15",
+    "recorded_at": "2026-11-03T23:57:31+08:00",
+    "target": "第二次模型核对的处理",
+    "original": "8项静态结论, 未发现阻断问题",
+    "finding": "逐项与22个边界情境对照后, 没有需要新增的业务修订.",
+    "decision": "保留",
+    "result": "保留业务设计, 补完整输入输出和工具记录, 继续实际图像版面核对.",
+    "basis": "party-b-ai-02-input/output.txt及保存快照manifest"
+  }
+]

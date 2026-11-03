@@ -1,0 +1,22 @@
+{
+  "time": "2026-11-04T00:07:08.066428+08:00",
+  "changesAfterDesignHandoff": [
+    {
+      "target": "UML/B01",
+      "change": "限定包依赖方向并增加隐藏层级定位, 未改变可见模块依赖",
+      "reason": "原图横向2274px, 报告缩小难读, 当前约1235x875"
+    },
+    {
+      "target": "design/design.md",
+      "change": "将已增加的边界案例总数说明由20同步为22",
+      "reason": "最终表已实际包含BC-01至BC-22"
+    },
+    {
+      "target": "design/screens.json",
+      "change": "UI23移除工作人员日志和分房需求映射, UI24保留工作人员日志拒绝",
+      "reason": "与最终角色分工和实际页面内容一致"
+    }
+  ],
+  "figma": "5:2, 已在原生图层面板检查24屏与Text/Auto layout",
+  "styleDecision": "用户确认木色米色方案"
+}

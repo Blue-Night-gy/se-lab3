@@ -2,11 +2,16 @@
 !pragma layout smetana
 skinparam defaultFontName Noto Sans SC
 skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam nodesep 20
+skinparam ranksep 30
 title B01 包图 - 酒店预订系统分层模块与依赖
 package "展示与接口层" as Presentation {
   [顾客入口] as CustomerEntry
   [酒店工作台] as StaffEntry
   [平台管理入口] as AdminEntry
+  CustomerEntry -[hidden]down-> StaffEntry
+  StaffEntry -[hidden]down-> AdminEntry
 }
 package "应用层" as Application {
   [身份与范围校验] as Access
@@ -16,6 +21,12 @@ package "应用层" as Application {
   [查询统计服务] as Reporting
   [日志查询服务] as AuditQuery
   [到期任务入口] as Expiry
+  Access -[hidden]down-> Booking
+  Booking -[hidden]down-> Selling
+  Selling -[hidden]down-> FrontDesk
+  FrontDesk -[hidden]down-> Reporting
+  Reporting -[hidden]down-> AuditQuery
+  AuditQuery -[hidden]down-> Expiry
 }
 package "领域层" as Domain {
   [订单聚合] as ReservationDomain
@@ -23,18 +34,25 @@ package "领域层" as Domain {
   [实体房聚合] as RoomDomain
   [报价与提交决定] as DecisionDomain
   [停业与协调记录] as ExceptionDomain
+  ReservationDomain -[hidden]down-> OfferDomain
+  OfferDomain -[hidden]down-> RoomDomain
+  RoomDomain -[hidden]down-> DecisionDomain
+  DecisionDomain -[hidden]down-> ExceptionDomain
 }
 package "应用端口" as Ports {
   [仓储与工作单元接口] as UnitPorts
   [审计写入接口] as AuditPort
+  UnitPorts -[hidden]down-> AuditPort
 }
 package "基础设施层" as Infrastructure {
   [MySQL仓储与事务适配器] as MysqlAdapter
   [数据库时钟与操作互斥] as ClockAdapter
   [持久化任务扫描器] as TaskAdapter
+  MysqlAdapter -[hidden]down-> ClockAdapter
+  ClockAdapter -[hidden]down-> TaskAdapter
 }
 database "MySQL 8.4 / InnoDB" as Db
-Presentation --> Application
+Presentation -down-> Application
 Booking --> Access
 Selling --> Access
 FrontDesk --> Access
@@ -48,12 +66,16 @@ FrontDesk --> ReservationDomain
 FrontDesk --> RoomDomain
 Selling --> OfferDomain
 Selling --> ExceptionDomain
-Application --> Ports
-Infrastructure ..> Ports : 实现
+Application -down-> Ports
+Infrastructure .up.> Ports : 实现
 MysqlAdapter --> Db
 ClockAdapter --> Db
 TaskAdapter --> Db
 TaskAdapter --> Expiry
+Presentation -[hidden]down-> Application
+Application -[hidden]down-> Domain
+Domain -[hidden]down-> Ports
+Ports -[hidden]down-> Infrastructure
 note bottom of Booking
 Tbiz由应用服务开启和提交.
 订单, 全部间夜, 库存与成功审计

@@ -1,46 +1,55 @@
 @startuml
 skinparam defaultFontName Noto Sans SC
-title B06 时序图 - 多晚多间预订与同请求重发
+skinparam shadowing false
+title B06 时序图 - 一次预订, 持久结果与连接级互斥
 actor "顾客" as C
 boundary "预订API" as API
 control "OperationCoordinator" as OP
 control "BookingService" as BS
-control "授权/报价/同程策略" as Rules
 database "MySQL/InnoDB" as DB
-C -> API : submit(operationId, quoteId, accepted=true, plan)
+C -> API : submit(operationId, quoteId, accept=true, plan)
 API -> OP : authorizeAndBind(command)
-OP -> DB : GET_LOCK(actor+operationId), T0保存或读取提交内容
-alt 已完成的同号同内容
-  OP -> DB : 重新核对访问范围, 读取原处理结果与当前状态
-  OP --> API : replayResult
-else 新提交或可恢复PENDING
-  OP -> BS : execute(command)
-  BS -> DB : BEGIN Tbiz
-  BS -> DB : 锁顾客提交闸行, 酒店共享锁, 全部日售行升序锁
-  BS -> Rules : 核对当前授权, 报价内容, 同程决定及最终时间
-  Rules -> DB : 读当前价格, 停售, 停业, 库存和同程订单
-  alt 改价 / 缺房 / 停售 / 需要重复提醒
-    BS -> DB : ROLLBACK Tbiz
-    BS --> OP : 无业务效果的结果
-    OP -> DB : BEGIN Tfail; 保存结果和去重失败审计; COMMIT
-    OP --> API : PRICE_CHANGED / DUPLICATE_DECISION / NO_AVAILABILITY
-  else 全部满足
-    BS -> DB : 保存待确认订单, version=1, deadline=T+20min
-    loop 每个住宿日d, 不包含退房日
-      BS -> DB : reservedUnits[d] += q
-      BS -> DB : 保存BookedNight(d, unitPrice, q)
+OP -> DB : 专用连接: GET_LOCK(lockName, timeoutSeconds)
+alt 返回0或NULL, 未取得命名锁
+  OP --> API : 202同号重试 / 503基础设施失败, 无业务写入
+else 返回1, 已取得命名锁
+  OP -> DB : T0保存或读取内容绑定与PENDING
+  alt 同号改动作或参数
+    OP --> API : IDEMPOTENCY_CONTENT_CONFLICT
+  else 同号同内容已完成
+    OP -> DB : 当前授权校验, 读取持久结果和当前订单状态
+    OP --> API : replayResult
+  else 新提交或可恢复PENDING
+    OP -> BS : execute(command), 沿用同一连接
+    BS -> DB : BEGIN; 锁授权, 顾客闸行, 酒店共享锁, 全部日售键
+    BS -> DB : 当前读库存/价/停售/停业/同程集合; 锁齐后读取T
+    alt 需要新接受决定或任一校验失败
+      BS -> DB : 显式ROLLBACK整个Tbiz
+      BS --> OP : 无订单或新占用的结果
+      OP -> DB : Tfail保存结果及去重失败审计; COMMIT
+      OP --> API : PRICE_CHANGED / DUPLICATE_DECISION / NO_AVAILABILITY
+    else 全部满足
+      BS -> DB : 写待确认单, version=1, deadline=T+20分钟
+      loop 每个住宿日d, 不含退房日
+        BS -> DB : reservedUnits[d]+=q; 保存BookedNight(d,price,q)
+      end
+      BS -> DB : 当前版本任务, 成功审计和操作最终结果
+      BS -> DB : COMMIT Tbiz
+      BS --> OP : CREATED(orderId,deadline)
+      OP --> API : 同一最终结果
     end
-    BS -> DB : 写当前版本确认任务, 成功审计与最终操作结果
-    BS -> DB : COMMIT Tbiz
-    BS --> OP : CREATED(orderId, deadline)
-    OP --> API : 同一最终结果
   end
 end
-OP -> DB : RELEASE_LOCK(actor+operationId)
-API --> C : 结果和当前可见状态
+group finally, 归还连接之前
+  OP -> DB : 结束未决事务, 仅在已持锁时RELEASE_LOCK
+  OP -> DB : 确认释放后才归还池; 状态不明则丢弃物理连接
+end
+API --> C : 业务结果及当前可见状态
 note over OP,DB
-同号改内容拒绝, 不覆盖原结果.
-并发重发等待同一操作结束, 不创建第二单.
-提交前崩溃回滚, 提交后重试读已存结果.
+命名锁不随COMMIT/ROLLBACK释放.
+并发重发等同一锁, 不创建第二单.
+连接断开后重试仍用原号: 先取得同一锁,
+FINAL回放; 只有PENDING且无提交结果才恢复执行.
+任何写语句失败都显式回滚整笔, 不依赖默认语句级回滚.
 end note
 @enduml

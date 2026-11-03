@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-11-03T23:59:20+08:00",
+  "requirements_baseline_exact_in_input": true,
+  "requirements": 26,
+  "traceability_rows": 26,
+  "actual_ui_screens": 24,
+  "boundary_cases": 22,
+  "diagram_sources": 8,
+  "uml_types": 7,
+  "model_flows": 2,
+  "first_raw_bytes": 57270,
+  "first_raw_preserved": true,
+  "second_readonly_findings": 8,
+  "second_blocking_findings": 0,
+  "review_records": 15,
+  "upper_documents_have_author_signature": false,
+  "rendered_png_files_present": [
+    "B01-package-architecture.png",
+    "B02-domain-class.png",
+    "B03-multi-room-object.png",
+    "B04-order-state.png",
+    "B05-quote-submit-activity.png",
+    "B06-booking-sequence.png",
+    "B07-amendment-sequence.png",
+    "B08-local-deployment.png"
+  ],
+  "B01_layout": "依赖含义保留, 协调中的最后包层定位由实际渲染收尾",
+  "files_sha256": {
+    "design/design.md": "7f2b35050f953d16c0742f52077a4439bfe4c826078b2e4fa85ac9bca552fd17",
+    "design/report-body.md": "57477ba0af8eb04d32b9394b7275f951a303fd4c3a04c3a88a6d741ebf4666be",
+    "design/traceability.md": "53c9b8c7d7d66563dc69f7d087c38076dd01fb676a521dd4a22c742d45c1546c",
+    "design/boundary-cases.md": "ff27e6eeb722b571ad2d1d53ae2f0d17f004498c95e4eaf6b226eac0a7314166"
+  }
+}
