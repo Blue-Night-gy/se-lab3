@@ -1,0 +1,183 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName Noto Sans SC
+skinparam classAttributeIconSize 0
+hide empty members
+title B02 类图 - 私有数据, 受控方法与聚合边界
+package "预订聚合" {
+  class Reservation <<aggregate root>> {
+    -id: ReservationId
+    -customerId: UserId
+    -state: OrderState
+    -plan: StayPlan
+    -guest: GuestInfo
+    -total: Money
+    -version: Long
+    -confirmationDeadlineUtc: Instant
+    -actualCheckinUtc: Instant?
+    +confirm(now: Instant, expected: Long): void
+    +amendStay(plan: StayPlan, quote: PriceQuote, now: Instant): void
+    +correctGuest(guest: GuestInfo): void
+    +cancel(now: Instant, reason: String): void
+    +expire(now: Instant, expected: Long): void
+    +checkIn(rooms: List<RoomId>, now: Instant): void
+    +complete(now: Instant): void
+  }
+  class BookedNight <<entity>> {
+    -stayDate: LocalDate
+    -roomTypeId: RoomTypeId
+    -unitPrice: Money
+    -quantity: Int
+    -reservedQuantity: Int
+    ~releaseAllocation(): void
+    +lineTotal(): Money
+  }
+  class RoomAssignment <<entity>> {
+    -roomId: RoomId
+    -checkinUtc: Instant
+    -checkoutUtc: Instant?
+    ~finish(now: Instant): void
+  }
+  class StayPlan <<immutable value>> {
+    -hotelId: HotelId
+    -roomTypeId: RoomTypeId
+    -checkin: LocalDate
+    -checkout: LocalDate
+    -quantity: Int
+    +nightDates(): List<LocalDate>
+    +sameStay(other: StayPlan): Boolean
+  }
+  class GuestInfo <<immutable value>> {
+    -names: List<String>
+    +isValid(): Boolean
+  }
+}
+package "独立资源聚合" {
+  class DayOffer <<aggregate root>> {
+    -roomTypeId: RoomTypeId
+    -stayDate: LocalDate
+    -capacity: Int
+    -reservedUnits: Int
+    -unitPrice: Money?
+    -stopSale: Boolean
+    -version: Long
+    +available(): Int
+    +applyDelta(delta: Int): void
+    +reviseSelling(capacity: Int, price: Money?, stop: Boolean): void
+  }
+  class Room <<aggregate root>> {
+    -id: RoomId
+    -hotelId: HotelId
+    -roomTypeId: RoomTypeId
+    -number: String
+    -state: RoomState
+    -version: Long
+    +occupy(order: ReservationId): void
+    +markDirty(order: ReservationId): void
+    +markClean(): void
+    +startMaintenance(): void
+    +finishMaintenance(): void
+  }
+  class Hotel <<aggregate root>> {
+    -id: HotelId
+    -city: String
+    -name: String
+    -saleRevision: Long
+    +reviseProfile(name: String, city: String): void
+  }
+  class RoomType <<aggregate root>> {
+    -id: RoomTypeId
+    -hotelId: HotelId
+    -name: String
+    -maxPersonsPerRoom: Int
+    +reviseProfile(name: String, capacity: Int): void
+  }
+}
+package "决定与协调聚合" {
+  class PriceQuote <<immutable quote>> {
+    -id: QuoteId
+    -customerId: UserId
+    -targetOrderVersion: Long?
+    -planHash: String
+    -nightRates: Map<LocalDate, Money>
+    -total: Money
+    +matches(plan: StayPlan, rates: Map): Boolean
+  }
+  class Submission <<aggregate root>> {
+    -actorId: UserId
+    -operationId: UUID
+    -action: String
+    -payloadHash: String
+    -state: OperationState
+    -resultJson: Json?
+    +bind(action: String, hash: String): void
+    +finish(result: CommandResult): void
+    +replay(): CommandResult
+  }
+  class SupplyBlock <<aggregate root>> {
+    -id: BlockId
+    -hotelId: HotelId
+    -roomTypeId: RoomTypeId?
+    -fromDate: LocalDate
+    -toDateExclusive: LocalDate
+    -reason: String
+    -active: Boolean
+    +activate(): void
+    +close(result: String): void
+  }
+  class CoordinationCase <<aggregate root>> {
+    -orderId: ReservationId
+    -blockId: BlockId
+    -handlerId: UserId?
+    -result: String?
+    +assign(handler: UserId): void
+    +recordResult(result: String): void
+  }
+}
+class Money <<immutable value>> {
+  -amount: Decimal
+  -currency: String
+  +multiply(quantity: Int): Money
+  +add(other: Money): Money
+}
+class InventoryDeltaPlanner <<domain service>> {
+  +difference(old: StayPlan?, next: StayPlan): Map<OfferKey, Int>
+}
+class BookingService <<application service>> {
+  -unitOfWork: UnitOfWork
+  +submit(command: SubmitBooking): CommandResult
+  +amend(command: AmendBooking): CommandResult
+  +expire(orderId: ReservationId, version: Long): void
+}
+Reservation "1" *-- "1" StayPlan
+Reservation "1" *-- "1" GuestInfo
+Reservation "1" *-- "1..*" BookedNight
+Reservation "1" *-- "0..*" RoomAssignment
+BookedNight --> DayOffer : 按房型和住宿日引用
+RoomAssignment --> Room : 引用独立实体房
+RoomType --> Hotel
+DayOffer --> RoomType
+Room --> RoomType
+PriceQuote --> StayPlan : 绑定内容
+CoordinationCase --> Reservation
+CoordinationCase --> SupplyBlock
+BookingService --> Reservation
+BookingService --> DayOffer
+BookingService --> Submission
+BookingService --> InventoryDeltaPlanner
+BookingService --> PriceQuote
+note bottom of Reservation
+无公共setState/setPrice/setDeadline.
+子实体集合只读返回, 由聚合根控制.
+更正入住人也升version, 但不改期限和价格.
+end note
+note bottom of DayOffer
+不是订单子对象.
+跨聚合一致性由单库Tbiz保证.
+0 <= reservedUnits <= capacity.
+end note
+note bottom of RoomAssignment
+已入住时活动分配数量=预订间数q.
+房号必须不同且同酒店同房型.
+end note
+@enduml

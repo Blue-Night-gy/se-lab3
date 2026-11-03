@@ -1,0 +1,66 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName Noto Sans SC
+skinparam packageStyle rectangle
+title B01 包图 - 酒店预订系统分层模块与依赖
+package "展示与接口层" as Presentation {
+  [顾客入口] as CustomerEntry
+  [酒店工作台] as StaffEntry
+  [平台管理入口] as AdminEntry
+}
+package "应用层" as Application {
+  [身份与范围校验] as Access
+  [预订协调服务] as Booking
+  [日售与停业服务] as Selling
+  [前台分房服务] as FrontDesk
+  [查询统计服务] as Reporting
+  [日志查询服务] as AuditQuery
+  [到期任务入口] as Expiry
+}
+package "领域层" as Domain {
+  [订单聚合] as ReservationDomain
+  [日售聚合] as OfferDomain
+  [实体房聚合] as RoomDomain
+  [报价与提交决定] as DecisionDomain
+  [停业与协调记录] as ExceptionDomain
+}
+package "应用端口" as Ports {
+  [仓储与工作单元接口] as UnitPorts
+  [审计写入接口] as AuditPort
+}
+package "基础设施层" as Infrastructure {
+  [MySQL仓储与事务适配器] as MysqlAdapter
+  [数据库时钟与操作互斥] as ClockAdapter
+  [持久化任务扫描器] as TaskAdapter
+}
+database "MySQL 8.4 / InnoDB" as Db
+Presentation --> Application
+Booking --> Access
+Selling --> Access
+FrontDesk --> Access
+Reporting --> Access
+AuditQuery --> Access
+Expiry --> Booking
+Booking --> ReservationDomain
+Booking --> OfferDomain
+Booking --> DecisionDomain
+FrontDesk --> ReservationDomain
+FrontDesk --> RoomDomain
+Selling --> OfferDomain
+Selling --> ExceptionDomain
+Application --> Ports
+Infrastructure ..> Ports : 实现
+MysqlAdapter --> Db
+ClockAdapter --> Db
+TaskAdapter --> Db
+TaskAdapter --> Expiry
+note bottom of Booking
+Tbiz由应用服务开启和提交.
+订单, 全部间夜, 库存与成功审计
+使用同一连接和同一事务.
+end note
+note bottom of Reporting
+只读查询不调用领域写方法.
+三项统计使用同一一致读快照.
+end note
+@enduml

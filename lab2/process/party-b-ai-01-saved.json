@@ -1,0 +1,18 @@
+{
+  "recorded_at": "2026-11-03T23:30:01+08:00",
+  "output_bytes": 57270,
+  "output_sha256": "2acf4b16b39ddc00b07dc11a741135952d4c8e70b5ca7cdd86817054cafd5f64",
+  "proposal_byte_equal": true,
+  "puml_count": 8,
+  "puml_files": [
+    "B01-package-architecture.puml",
+    "B02-domain-class.puml",
+    "B03-multi-room-object.puml",
+    "B04-order-state.puml",
+    "B05-quote-submit-activity.puml",
+    "B06-booking-sequence.puml",
+    "B07-amendment-sequence.puml",
+    "B08-local-deployment.puml"
+  ],
+  "scope": "完整原稿落盘检查, 尚未人工修改或开展内容复核"
+}

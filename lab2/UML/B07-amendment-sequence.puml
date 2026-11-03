@@ -1,0 +1,55 @@
+@startuml
+skinparam defaultFontName Noto Sans SC
+title B07 时序图 - 住宿调整, 入住人更正与旧期限任务
+actor "顾客" as C
+control "改单协调服务" as S
+control "领域对象" as D
+database "MySQL/InnoDB" as DB
+control "确认期限任务" as W
+C -> S : amend(operationId, expectedVersion, acceptedQuoteId, newPlan/guest)
+S -> DB : 操作互斥与T0内容绑定
+S -> DB : BEGIN Tbiz; 锁顾客闸行, 订单和所需资源
+S -> DB : 读取当前version, 状态, deadline与最终服务端时间
+alt 待确认且now >= deadline
+  S -> D : expire(now, currentVersion)
+  S -> DB : 全部旧间夜释放, 已取消, 成功审计, 当前任务办结
+  S -> DB : COMMIT超时事务
+  S -> DB : 独立保存本次改单失败尝试及结果
+  S --> C : ORDER_EXPIRED
+else 当前仍允许修改
+  alt 仅入住人变化
+    S -> D : correctGuest(guest)
+    S -> DB : version++, 状态/原价/deadline均保持
+    S -> DB : 为新version保存同deadline任务(仅待确认)
+    S -> DB : 保存成功审计和操作结果; COMMIT
+    S --> C : UPDATED_GUEST
+  else 日期 / 房型 / 间数变化
+    S -> DB : 锁新旧日售并集, 计算delta=D-O
+    S -> D : 检验新逐晚报价及available+O >= D
+    alt 报价变化或任一晚不可订
+      S -> DB : ROLLBACK, 原订单和旧占用不变
+      S -> DB : 独立保存新报价/错误结果和失败审计
+      S --> C : PRICE_CHANGED / NO_AVAILABILITY
+    else 全部通过
+      S -> D : amendStay(newPlan, acceptedQuote, now)
+      S -> DB : 更新差额, 替换成交夜价, 待确认, version++
+      S -> DB : deadline=本次成功时刻+20min, 写新版本任务
+      S -> DB : 保存原完整快照, 成功审计及操作结果; COMMIT
+      S --> C : UPDATED_STAY
+    end
+  end
+end
+W -> DB : BEGIN; 按相同锁顺序读取订单并锁定
+alt 任务expectedVersion != 当前version 或非待确认
+  W -> DB : 标记SKIPPED; COMMIT, 不改订单和库存
+else 当前版本且now >= deadline
+  W -> DB : 取消+逐晚释放+审计+任务结果; COMMIT
+else 尚未到期
+  W -> DB : 保持待处理; COMMIT
+end
+note over S,W
+Tbiz中的确认, 修改和超时通过订单锁串行化.
+入住人更正也升version, 必须补同期限的新版本任务.
+等待顾客接受新价不暂停原20分钟确认倒计时.
+end note
+@enduml
