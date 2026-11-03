@@ -2,3 +2,10 @@ process/figma-*-guidance.json
 process/figma-tools.json
 process/.transient/
 process/report-preview/
+node_modules/
+process/git-log.txt
+process/git-tags.txt
+process/git-diff-summary.txt
+process/lab2-history.bundle
+process/submission-check.json
+实验2_241220090_葛茹月.zip

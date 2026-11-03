@@ -28,8 +28,8 @@ T=本分支全部必要锁取得后的数据库时钟.
 end note
 note left of Confirmed
 住宿调整和入住人更正均要求:
-本人, 原状态可改, 
-T < 当前计划入住日北京时间18:00, 
+本人, 原状态可改,
+T < 当前计划入住日北京时间18:00,
 尚未实际入住.
 end note
 note bottom of CheckedIn

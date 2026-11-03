@@ -1,0 +1,33 @@
+{
+  "time": "2026-11-04T00:12:02.473455+08:00",
+  "pages": 53,
+  "pdfMetadata": {
+    "format": "PDF 1.5",
+    "title": "实验二 软件设计与建模 - 泊序酒店预订系统",
+    "author": "",
+    "subject": "软件工程实验二",
+    "keywords": "",
+    "creator": "LaTeX with hyperref",
+    "producer": "xdvipdfmx (20220710)",
+    "creationDate": "D:20261104001049+08'00'",
+    "modDate": "",
+    "trapped": "",
+    "encryption": null
+  },
+  "checks": {
+    "lab1FilesUnchanged": true,
+    "lab1TagsUnchanged": true,
+    "baselineCopyMatches": true,
+    "all26RequirementsInPdf": true,
+    "all24ScreenNamesInPdf": true,
+    "noPdfAuthor": true,
+    "noOverfullOrMissingFont": true,
+    "everyAtlasPageHasImage": true,
+    "noEmptyPages": true,
+    "noTextOutsidePage": true
+  },
+  "emptyPages": [],
+  "textOutsidePage": [],
+  "pdfSha256": "c1bc8a99c4b5a7a4ad25e6339c3a478cda7d44c75d269220915708e06f6c6ea1",
+  "atlasImages": 34
+}
