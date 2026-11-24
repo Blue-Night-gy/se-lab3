@@ -1,0 +1,51 @@
+@startuml
+skinparam defaultFontName Microsoft YaHei
+skinparam noteBackgroundColor #F7F8F4
+skinparam noteBorderColor #8E9589
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam sequenceArrowColor #555C53
+skinparam sequenceLifeLineBorderColor #777E74
+skinparam sequenceParticipantBackgroundColor #E5E9E0
+skinparam sequenceGroupBackgroundColor #F4F5F1
+title B06 时序图 · 提交预订与新报价确认
+
+actor "顾客" as Customer
+boundary "HTTP 入口" as Http
+control "预订模块" as Booking
+database "SQLite" as Db
+
+Customer -> Http : 提交编号、行程、间数、已接受报价
+Http -> Booking : 校验身份后处理预订
+Booking -> Db : 开启写事务并查找原申请结果
+alt 同号、同参数已有结果
+  Db --> Booking : 已保存结果
+else 新提交
+  Booking -> Db : 核对房型、实时日售及停业
+  alt 接受的逐晚价格已有变化
+    Booking -> Db : 保存新报价和处理结果
+    note right of Db : 保持订单和库存原状.
+  else 价格一致，但存在未确认的同程提示
+    Booking -> Db : 保存同程决定凭证和处理结果
+    note right of Db : 保持订单和库存原状.
+  else 预订条件满足
+    Booking -> Db : 保存订单与逐晚成交单价
+    loop 入住日到退房日前一天
+      Booking -> Db : 占用 q 间
+    end
+    Booking -> Db : 保存处理结果及成功审计
+  end
+end
+Booking -> Db : 提交事务
+Booking --> Http : 返回业务处理结果
+Http --> Customer : 订单、报价变更或同程提示
+
+note over Customer,Booking
+顾客接受变更报价后使用新提交编号.
+再次提交会重查当前价格及余量.
+end note
+note over Booking,Db
+任一步写入失败时整笔回滚.
+查询页上的余量以提交时复核为准.
+end note
+@enduml

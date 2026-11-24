@@ -1,0 +1,59 @@
+@startuml
+skinparam defaultFontName Microsoft YaHei
+skinparam noteBackgroundColor #F7F8F4
+skinparam noteBorderColor #8E9589
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam packageStyle rectangle
+skinparam packageBorderColor #555C53
+skinparam packageBackgroundColor #F4F5F1
+skinparam componentBorderColor #555C53
+skinparam componentBackgroundColor #FFFFFF
+skinparam ArrowColor #555C53
+title B01 包图 · 泊序酒店预订系统
+
+package "浏览器" {
+  [客房查找与我的预订] as Guest
+  [酒店工作台与平台管理] as Desk
+}
+
+package "Node.js 本地服务" {
+  [HTTP 路由与静态页面] as Http
+
+  package "业务模块" {
+    [catalog · 查询与报价] as Catalog
+    [reservation · 预订与确认] as Reservation
+    [operations · 前台及日售] as Operations
+    [insight · 统计及日志] as Insight
+    [accounts · 身份与会话] as Accounts
+  }
+
+  [model · 业务值与约束] as Model
+  [repository · 数据访问与事务] as Repo
+}
+
+database "SQLite" as Db
+
+Guest -down-> Http
+Desk -down-> Http
+Http -down-> Catalog
+Http -down-> Reservation
+Http -down-> Operations
+Http -down-> Insight
+Http -down-> Accounts
+Reservation .right.> Catalog : 复核报价
+Catalog -down-> Model
+Reservation -down-> Model
+Operations -down-> Repo
+Insight -down-> Repo
+Accounts -down-> Repo
+Catalog -down-> Repo
+Reservation -down-> Repo
+Repo -down-> Db
+
+note right of Db
+写事务序列化.
+订单、逐晚占用与成功审计
+在同一事务内提交.
+end note
+@enduml

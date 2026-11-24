@@ -1,0 +1,76 @@
+@startuml
+skinparam defaultFontName Microsoft YaHei
+skinparam noteBackgroundColor #F7F8F4
+skinparam noteBorderColor #8E9589
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam classBorderColor #555C53
+skinparam classBackgroundColor #F4F5F1
+skinparam classHeaderBackgroundColor #E5E9E0
+skinparam ArrowColor #555C53
+hide empty members
+title B02 类图 · 订单、日售、报价与实体房
+
+class "Reservation" as Reservation <<记录>> {
+  id, customer_id, guest_name
+  state, version, deadline
+  total
+}
+class "StayPlan" as Stay <<值>> {
+  typeId, arrival, departure
+  quantity, guests
+  nights
+  cutoff
+}
+class "BookedNight" as Booked <<记录>> {
+  order_id, night
+  unit
+}
+class "DayOffer" as Offer <<记录>> {
+  type_id, night
+  capacity, reserved
+  price, stopped
+}
+class "RoomAssignment" as Assignment <<记录>> {
+  order_id, room_id
+  checked_in, checked_out
+}
+class "Room" as Room <<记录>> {
+  id, type_id
+  number, state
+}
+class "PriceQuote" as Quote <<值>> {
+  plan, prices, available
+  total, item
+}
+class "Submission" as Submission <<记录>> {
+  customer_id, key
+  fingerprint, result
+}
+
+Reservation "1" *-down- "1" Stay : 当前行程
+Reservation "1" *-down- "1..*" Booked : 成交记录
+Reservation "1" *-down- "0..*" Assignment : 入住分配历史
+Booked "*" --> "1" Offer : 房型与住宿日
+Assignment "*" --> "1" Room : 实体房号
+Quote ..> Stay : 报价绑定
+Submission ..> Reservation : 成功结果指向
+Stay -[hidden]right- Booked
+Booked -[hidden]right- Assignment
+
+note bottom of Stay
+占用范围为 [入住日, 退房日).
+每个住宿日按间数 q 检查和占用.
+行程从订单的日期、间数及房型恢复.
+end note
+note left of Quote
+持久报价绑定顾客及行程;
+改期报价另外绑定订单版本.
+过期后重新报价.
+end note
+note bottom of Assignment
+活动分配的房号互异.
+入住时一次提交 q 个房号.
+end note
+@enduml
